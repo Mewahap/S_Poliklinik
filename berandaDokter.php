@@ -12,12 +12,46 @@ include_once("koneksi.php");
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>POLIKLINIK</title>
+    <title>Home Dokter</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
+<style>
+    .jumbotron {
+        background: url('images/dokter.jpg') no-repeat center center;
+        background-size: cover;
+        color: white;
+        text-align: center;
+        padding: 100px;
+        position: relative;
+        backdrop-filter: blur(5px);
+    }
+
+    .jumbotron::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: inherit;
+        filter: blur(5px);
+        /* Adjust the blur intensity as needed */
+        z-index: -1;
+    }
+
+
+    .jumbotron h1 {
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .bold-text {
+        font-weight: bold;
+    }
+</style>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand" href="#">Sistem Informasi Poliklinik</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +60,7 @@ include_once("koneksi.php");
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="berandaDokter.php">Home</a>
+                        <a class="nav-link" aria-current="page" href="index.php">Home</a>
                     </li>
                     <?php
                     if (isset($_SESSION['nama'])) {
@@ -36,15 +70,18 @@ include_once("koneksi.php");
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Pasien</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="berandaDokter.php?page=periksa">Periksa</a>
+                                    <a class="dropdown-item" href="index.php?page=obat">Jadwal Periksa</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="berandaDokter.php?page=riwayatpasien">Riwayat Pasien</a>
+                                    <a class="dropdown-item" href="index.php?page=obat">Pasien</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=obat">Periksa</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="berandaDokter.php?page=profildokter">Profil Dokter</a>
+                            <a class="nav-link" aria-current="page" href="index.php?page=profildokter">Profil Dokter</a>
                         </li>
                     <?php
                     }
@@ -88,20 +125,28 @@ include_once("koneksi.php");
         if (isset($_GET['page'])) {
             include($_GET['page'] . ".php");
         } else {
-            echo "<br><h2>Selamat Datang Dokter di Sistem Informasi Poliklinik";
+            echo '<div class="jumbotron mt-4">
+                    <h1 class="display-4">Selamat Datang Dokter di Sistem Informasi Poliklinik</h1>';
 
             if (isset($_SESSION['nama'])) {
-                //jika sudah login tampilkan nama
-                echo ", " . $_SESSION['nama'] . "</h2><hr>";
+                //jika sudah login tampilkan username
+                echo '<p class="lead bold-text">Halo, ' . $_SESSION['nama'] . '</p>';
             } else {
-                echo "</h2><hr>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.";
+                echo '<hr class="my-4">
+                      <p>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.</p>';
             }
+            echo '</div>';
         }
         ?>
     </main>
 
 
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+
 
 </html>

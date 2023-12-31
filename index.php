@@ -14,12 +14,44 @@ include_once("koneksi.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>POLIKLINIK</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+<style>
+    .jumbotron {
+        background: url('images/poli.jpg') no-repeat center center;
+        background-size: cover;
+        color: white;
+        text-align: center;
+        padding: 100px;
+        position: relative;
+        backdrop-filter: blur(5px);
+    }
+
+    .jumbotron::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: inherit;
+        filter: blur(5px);
+        /* Adjust the blur intensity as needed */
+        z-index: -1;
+    }
+
+
+    .jumbotron h1 {
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .bold-text {
+        font-weight: bold;
+    }
+</style>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Sistem Informasi Poliklinik</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +61,9 @@ include_once("koneksi.php");
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.php?page=daftarpasien">Daftar Pasien</a>
                     </li>
                     <?php
                     if (isset($_SESSION['username'])) {
@@ -91,19 +126,25 @@ include_once("koneksi.php");
         if (isset($_GET['page'])) {
             include($_GET['page'] . ".php");
         } else {
-            echo "<br><h2>Selamat Datang di Sistem Informasi Poliklinik";
-
+            echo '<div class="jumbotron mt-4">
+                    <h1 class="display-4">Selamat Datang di Sistem Informasi Poliklinik</h1>';
             if (isset($_SESSION['username'])) {
                 //jika sudah login tampilkan username
-                echo ", " . $_SESSION['username'] . "</h2><hr>";
+                echo '<p class="lead bold-text">Halo, ' . $_SESSION['username'] . '</p>';
             } else {
-                echo "</h2><hr>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.";
+                echo '<hr class="my-4">
+                      <p>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.</p>';
             }
+            echo '</div>';
         }
         ?>
     </main>
 
 
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

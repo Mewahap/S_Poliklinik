@@ -113,7 +113,6 @@ if (isset($_GET['aksi'])) {
                             <i class="fas fa-trash-alt btn btn-danger rounded-pill px-3" title="Hapus"></i>
                         </a>
                     </td>
-
                 </tr>
             <?php
             }

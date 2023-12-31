@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2023 at 06:08 AM
+-- Generation Time: Dec 31, 2023 at 02:57 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `poli`
+-- Database: `poliklinik`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,8 @@ CREATE TABLE `daftar_poli` (
   `id_pasien` int(11) NOT NULL,
   `id_jadwal` int(11) NOT NULL,
   `keluhan` text NOT NULL,
-  `no_antrian` int(11) NOT NULL
+  `no_antrian` int(11) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -66,7 +67,9 @@ CREATE TABLE `dokter` (
 --
 
 INSERT INTO `dokter` (`id`, `nama`, `alamat`, `no_hp`, `id_poli`) VALUES
-(5, 'Mewah Aprilia Susyanti', 'kab tegal', '0895383243075', 1);
+(8, 'Mewah Aprilia Susyanti', 'Tegal', '0895383243075', 7),
+(9, 'Rahmaisya Intan Damayanti', 'Wirosari', '087856349021', 8),
+(10, 'Mercy Adi Pratama', 'Slawi', '0895625345609', 12);
 
 -- --------------------------------------------------------
 
@@ -100,11 +103,11 @@ CREATE TABLE `obat` (
 --
 
 INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`) VALUES
-(3, 'Paramex', 'Strip', 5000),
-(4, 'Pedilax', 'Strip', 26200),
-(5, 'Mixagrip', 'Strip', 3200),
-(6, 'Metrix', 'Strip', 100000),
-(7, 'Truvaz', 'Strip', 222000);
+(7, 'Paramex', 'Strip', 5000),
+(8, 'Pedilax', 'Strip', 26200),
+(9, 'Mixagrip', 'Strip', 3200),
+(10, 'Metrix', 'Strip', 100000),
+(11, 'Truvaz', 'Strip', 222000);
 
 -- --------------------------------------------------------
 
@@ -120,6 +123,13 @@ CREATE TABLE `pasien` (
   `no_hp` varchar(50) NOT NULL,
   `no_rm` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pasien`
+--
+
+INSERT INTO `pasien` (`id`, `nama`, `alamat`, `no_ktp`, `no_hp`, `no_rm`) VALUES
+(8, 'Marwa', 'Tegal', '3328185904020001', '087867123456', ' 202312-1 ');
 
 -- --------------------------------------------------------
 
@@ -152,15 +162,12 @@ CREATE TABLE `poli` (
 --
 
 INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
-(1, 'Poli Gigi (Poli Gigi dan ', 'Menyediakan perawatan gigi dan mulut, termasuk pemeriksaan gigi, pembersihan, perawatan gigi, dan prosedur bedah gigi.'),
-(5, 'Poli Anak (Poli Pediatri)', 'Menyediakan pelayanan kesehatan anak-anak, termasuk pemeriksaan rutin, imunisasi, dan penanganan masalah kesehatan anak.'),
-(6, 'Poli Kandungan dan Obstet', 'Menangani perawatan kesehatan reproduksi wanita, seperti pemeriksaan kandungan, pemantauan kehamilan, dan persalinan.'),
-(7, 'Poli Bedah', 'Menyediakan konsultasi dan perawatan untuk masalah yang memerlukan intervensi bedah, baik yang bersifat elektif maupun mendesak.'),
-(8, 'Poli Jantung (Poli Kardio', 'Menyediakan pelayanan kesehatan kardiologi, termasuk pemeriksaan jantung, manajemen penyakit jantung, dan rehabilitasi jantung.'),
-(9, 'Poli Paru (Poli Pneumolog', 'Menyediakan pelayanan kesehatan untuk masalah pernapasan dan penyakit paru, seperti asma, bronkitis, dan pneumonia.'),
-(10, 'Poli Gizi', 'Menyediakan konsultasi gizi dan edukasi, membantu pasien mengelola pola makan mereka untuk mendukung kesehatan dan mengatasi masalah gizi.'),
-(11, 'Poli Psikiatri', 'Menyediakan perawatan mental dan kesehatan jiwa, termasuk terapi psikologis, konsultasi psikiater, dan manajemen masalah mental.'),
-(12, 'Poli Kesehatan Wanita (Po', 'Menyediakan pelayanan kesehatan yang terkait dengan masalah kesehatan wanita, seperti pemeriksaan panggul, pap smear, dan penanganan masalah ginekologi.');
+(7, 'Poli Gigi', 'Menyediakan perawatan gigi dan mulut, termasuk pemeriksaan gigi, pembersihan, perawatan gigi, dan prosedur bedah gigi.'),
+(8, 'Poli Anak', 'Menyediakan pelayanan kesehatan anak-anak, termasuk pemeriksaan rutin, imunisasi, dan penanganan masalah kesehatan anak.'),
+(9, 'Poli Kandungan dan Obstet', 'Menangani perawatan kesehatan reproduksi wanita, seperti pemeriksaan kandungan, pemantauan kehamilan, dan persalinan.'),
+(10, 'Poli Bedah', 'Menyediakan konsultasi dan perawatan untuk masalah yang memerlukan intervensi bedah, baik yang bersifat elektif maupun mendesak.'),
+(11, 'Poli Jantung', 'Menyediakan pelayanan kesehatan kardiologi, termasuk pemeriksaan jantung, manajemen penyakit jantung, dan rehabilitasi jantung.'),
+(12, 'Poli Paru', 'Menyediakan pelayanan kesehatan untuk masalah pernapasan dan penyakit paru, seperti asma, bronkitis, dan pneumonia.');
 
 -- --------------------------------------------------------
 
@@ -170,7 +177,6 @@ INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -179,8 +185,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nama`, `username`, `password`) VALUES
-(4, '', 'mewsi', '$2y$10$n0rqjlJs5kiuesBNt2s9Ae6RQ.QtzaXgnEq3XX7zhkG3jFnIpgyha');
+INSERT INTO `user` (`id`, `username`, `password`) VALUES
+(6, 'admin', '$2y$10$BrKMzQaT8vMMFmUzhEwVFurjtsLAD1Ej9jGtpA9R/k1HeRH6C.oV6');
 
 --
 -- Indexes for dumped tables
@@ -255,7 +261,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `detail_periksa`
@@ -267,25 +273,25 @@ ALTER TABLE `detail_periksa`
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `periksa`
@@ -297,13 +303,13 @@ ALTER TABLE `periksa`
 -- AUTO_INCREMENT for table `poli`
 --
 ALTER TABLE `poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
