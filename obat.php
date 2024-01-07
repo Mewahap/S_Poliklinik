@@ -38,9 +38,22 @@ if (isset($_GET['aksi'])) {
         </script>";
 }
 ?>
-<h2>Obat</h2>
-<br>
-<div class="container">
+<!-- ======= Breadcrumbs ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Obat</h2>
+            <ol>
+                <li><a href="index.php">Home</a></li>
+                <li>Obat</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+<div class="container mt-3">
     <!--Form Input Data-->
 
     <form class="form row" style="width: 30rem;" method="POST" action="" name="myForm" onsubmit="return(validate());">
@@ -121,22 +134,12 @@ if (isset($_GET['aksi'])) {
                     <td><?php echo $data['kemasan'] ?></td>
                     <td><?php echo $data['harga'] ?></td>
                     <td>
-                        <a href="index.php?page=obat&id=<?php echo $data['id'] ?>">
-                            <i class="fas fa-pencil-alt btn btn-success rounded-pill px-3" title="Ubah"></i>
-                        </a>
-                        <a href="index.php?page=obat&id=<?php echo $data['id'] ?>&aksi=hapus">
-                            <i class="fas fa-trash-alt btn btn-danger rounded-pill px-3" title="Hapus"></i>
-                        </a>
+                        <a class="btn btn-success rounded-pill px-3" href="index.php?page=obat&id=<?php echo $data['id'] ?>">Ubah</a>
+                        <a class="btn btn-danger rounded-pill px-3" href="index.php?page=obat&id=<?php echo $data['id'] ?>&aksi=hapus">Hapus</a>
                     </td>
                 </tr>
             <?php
             }
             ?>
-
-            <!-- Bootstrap JS and Popper.js -->
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         </tbody>
     </table>

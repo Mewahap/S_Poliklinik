@@ -28,39 +28,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-center" style="font-weight: bold; font-size: 32px;">Login</div>
-                <div class="card-body">
-                    <form method="POST" action="index.php?page=loginUser">
-                        <?php
-                        if (isset($error)) {
-                            echo '<div class="alert alert-danger">' . $error . '
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>';
-                        }
-                        ?>
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" name="username" class="form-control" required placeholder="Masukkan nama anda">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" required placeholder="Masukkan password anda">
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </div>
-                    </form>
-                    <div class="text-center">
-                        <p class="mt-3">Belum punya akun? <a href="index.php?page=registerUser">Register</a></p>
+
+<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center" style="font-weight: bold; font-size: 32px;">Login Admin</div>
+                    <div class="card-body">
+                        <form method="POST" action="index.php?page=loginUser">
+                            <?php
+                            if (isset($error)) {
+                                echo '<div class="alert alert-danger">' . $error . '
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>';
+                            }
+                            ?>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" class="form-control" required placeholder="Masukkan nama anda">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" required placeholder="Masukkan password anda">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-12 pt-2 d-flex justify-content-center">
+                                    <button class="btn btn-primary" type="submit">Login</button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>

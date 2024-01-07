@@ -1,153 +1,175 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
-
+session_start();
 include_once("koneksi.php");
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <title>POLIKLINIK</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
 </head>
-<style>
-    .jumbotron {
-        background: url('images/poli.jpg') no-repeat center center;
-        background-size: cover;
-        color: white;
-        text-align: center;
-        padding: 100px;
-        position: relative;
-        backdrop-filter: blur(5px);
-    }
-
-    .jumbotron::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: inherit;
-        filter: blur(5px);
-        /* Adjust the blur intensity as needed */
-        z-index: -1;
-    }
-
-
-    .jumbotron h1 {
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
-
-    .bold-text {
-        font-weight: bold;
-    }
-</style>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <!-- Header -->
+    <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container">
-            <a class="navbar-brand" href="#">Sistem Informasi Poliklinik</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.php?page=daftarpasien">Daftar Pasien</a>
-                    </li>
+            <div class="header-container d-flex align-items-center justify-content-between">
+                <div class="logo">
+                    <h1 class="text-light"><a href="index.php"><span>POLIKLINIK</span></a></h1>
+                </div>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="nav-link scrollto" href="index.php">Home</a></li>
+                        <li><a class="nav-link scrollto" href="index.php?page=daftarpasien">Daftar Pasien</a></li>
+                        <?php
+                        if (isset($_SESSION['username'])) {
+                            // Menu master jika pengguna sudah login
+                        ?>
+                            <li><a class="nav-link scrollto" href="index.php?page=obat">Obat</a></li>
+                            <li><a class="nav-link scrollto " href="index.php?page=dokter">Dokter</a></li>
+                            <li><a class="nav-link scrollto" href="index.php?page=poli">Poli</a></li>
+                            <li><a class="nav-link scrollto" href="index.php?page=pasien">Pasien</a></li>
+                        <?php
+                        }
+                        if (!isset($_SESSION['username'])) {
+                            // Tombol "Get Started" hanya ditampilkan jika pengguna belum login
+                        ?>
+                            <li><a class="getstarted scrollto" href="#cta">Get Started</a></li>
+                        <?php
+                        }
+                        ?>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
                     <?php
                     if (isset($_SESSION['username'])) {
-                        //menu master jika user sudah login 
+                        // Jika pengguna sudah login, tampilkan tombol "Logout"
                     ?>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?page=obat">Obat</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?page=dokter">Dokter</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?page=poli">Poli</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?page=pasien">Pasien</a>
-                        </li>
+                        <ul class="navbar-nav ms-auto">
+                            <li>
+                                <a class="getstarted scrollto" href="logoutUser.php">Logout (<?php echo $_SESSION['username'] ?>)</a>
+                            </li>
+                        </ul>
                     <?php
                     }
                     ?>
-                </ul>
-                <?php
-                if (isset($_SESSION['username'])) {
-                    // Jika pengguna sudah login, tampilkan tombol "Logout"
-                ?>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="logoutUser.php">Logout (<?php echo $_SESSION['username'] ?>)</a>
-                        </li>
-                    </ul>
-                <?php
-                } else {
-                    // Jika pengguna belum login, tampilkan tombol "Login" dan "Register"
-                ?>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=registerUser">Register</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="index.php?page=loginUser">Admin</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="index.php?page=loginDokter">Dokter</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-    </nav>
+                </nav><!-- .navbar -->
 
+            </div><!-- End Header Container -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
     <main role="main" class="container">
         <?php
         if (isset($_GET['page'])) {
             include($_GET['page'] . ".php");
         } else {
-            echo '<div class="jumbotron mt-4">
-                    <h1 class="display-4">Selamat Datang di Sistem Informasi Poliklinik</h1>';
             if (isset($_SESSION['username'])) {
-                //jika sudah login tampilkan username
-                echo '<p class="lead bold-text">Halo, ' . $_SESSION['username'] . '</p>';
+                // Jika sudah login, tampilkan pesan selamat datang dengan username
+                echo '
+            <section id="hero" class="d-flex align-items-center">
+                <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
+                    <h1>Selamat Datang di Sistem Informasi Poliklinik</h1>
+                    <h2>Halo, ' . $_SESSION['username'] . '</h2>
+                </div>
+            </section>';
             } else {
-                echo '<hr class="my-4">
-                      <p>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.</p>';
+                // Jika belum login, tampilkan pesan selamat datang tanpa username
+                echo '
+            <section id="hero" class="d-flex align-items-center">
+                <div class="container text-center position-relative" data-aos="fade-in" data-aos-delay="200">
+                    <h1>Selamat Datang di Sistem Informasi Poliklinik</h1>
+                    <h2>Silakan Login untuk menggunakan sistem.</h2>
+                    <a href="#services" class="btn-get-started scrollto">Get Started</a>
+                </div>
+            </section>
+            <section id="services" class="services section-bg">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="section-title" data-aos="fade-right">
+                                <h2>Login</h2>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-6 d-flex align-items-stretch">
+                                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+                                        <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                                        <h4><a href="index.php?page=loginUser" class="btn-get-started scrollto">Admin</a></h4>
+                                        <p>Silahkan Login sebagai Admin</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+                                        <div class="icon"><i class="bx bx-file"></i></div>
+                                        <h4><a href="index.php?page=loginDokter" class="btn-get-started scrollto">Dokter</a></h4>
+                                        <p>Silahkan Login sebagai Dokter</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        
+            <section id="cta" class="cta">
+                <div class="container">
+                    <div class="text-center" data-aos="zoom-in">
+                        <h3>Poliklinik</h3>
+                        <p> Poliklinik adalah tempat pelayanan yang mempunyai tugas untuk melakukan pemeriksaan kepada pasien secara umum dengan mengetahui indikasi atau gejala yang diderita oleh pasien.</p>
+                    </div>
+                </div>
+            </section>';
             }
-            echo '</div>';
         }
         ?>
     </main>
 
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

@@ -40,9 +40,22 @@ if (isset($_GET['aksi'])) {
         </script>";
 }
 ?>
-<h2>Dokter</h2>
-<br>
-<div class="container">
+<!-- ======= Breadcrumbs ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Dokter</h2>
+            <ol>
+                <li><a href="index.php">Home</a></li>
+                <li>Dokter</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+<div class="container mt-3">
     <!--Form Input Data-->
 
     <form class="form row" method="POST" style="width: 30rem;" action="" name="myForm" onsubmit="return(validate());">
@@ -144,12 +157,8 @@ if (isset($_GET['aksi'])) {
                     <td><?php echo $data['no_hp'] ?></td>
                     <td><?php echo $data['id_poli'] ?></td>
                     <td>
-                        <a href="index.php?page=dokter&id=<?php echo $data['id'] ?>">
-                            <i class="fas fa-pencil-alt btn btn-success rounded-pill px-3" title="Ubah"></i>
-                        </a>
-                        <a href="index.php?page=dokter&id=<?php echo $data['id'] ?>&aksi=hapus">
-                            <i class="fas fa-trash-alt btn btn-danger rounded-pill px-3" title="Hapus"></i>
-                        </a>
+                        <a class="btn btn-success rounded-pill px-3" href="index.php?page=dokter&id=<?php echo $data['id'] ?>">Ubah</a>
+                        <a class="btn btn-danger rounded-pill px-3" href="index.php?page=dokter&id=<?php echo $data['id'] ?>&aksi=hapus">Hapus</a>
                     </td>
                 </tr>
             <?php

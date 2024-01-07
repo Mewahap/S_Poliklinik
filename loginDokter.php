@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $row = $result->fetch_assoc();
         if (($no_hp == $row['no_hp'])) {
             $_SESSION['nama'] = $nama;
+            $_SESSION['id'] = $row['id'];
             header("Location: berandaDokter.php");
         } else {
             $error = "Password salah";
@@ -28,36 +29,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-center" style="font-weight: bold; font-size: 32px;">Login</div>
-                <div class="card-body">
-                    <form method="POST" action="index.php?page=loginDokter">
-                        <?php
-                        if (isset($error)) {
-                            echo '<div class="alert alert-danger">' . $error . '
+<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center" style="font-weight: bold; font-size: 32px; background-color: #A9A9A9;">Login Dokter</div>
+                    <div class="card-body">
+                        <form method="POST" action="index.php?page=loginDokter">
+                            <?php
+                            if (isset($error)) {
+                                echo '<div class="alert alert-danger">' . $error . '
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>';
-                        }
-                        ?>
-                        <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" name="nama" class="form-control" required placeholder="Masukkan nama anda">
-                        </div>
-                        <div class="form-group">
-                            <label for="no_hp">Password</label>
-                            <input type="number" name="no_hp" class="form-control" required placeholder="Masukkan password anda">
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </div>
-                    </form>
+                            }
+                            ?>
+                            <div class="form-group">
+                                <label for="nama">Nama</label>
+                                <input type="text" name="nama" class="form-control" required placeholder="Masukkan nama anda">
+                            </div>
+                            <div class="form-group">
+                                <label for="no_hp">Password</label>
+                                <input type="number" name="no_hp" class="form-control" required placeholder="Masukkan password anda">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-12 pt-2 d-flex justify-content-center">
+                                    <button class="btn btn-primary" type="submit">Login</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>

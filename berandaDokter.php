@@ -48,6 +48,55 @@ include_once("koneksi.php");
     .bold-text {
         font-weight: bold;
     }
+
+    /*--------------------------------------------------------------
+# Breadcrumbs
+--------------------------------------------------------------*/
+    .breadcrumbs {
+        padding: 15px 0;
+        background: #f6f6f7;
+        margin-top: 10px;
+    }
+
+    .breadcrumbs h2 {
+        font-size: 24px;
+        line-height: 1;
+        font-weight: 400;
+    }
+
+    .breadcrumbs ol {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .breadcrumbs ol li+li {
+        padding-left: 10px;
+    }
+
+    .breadcrumbs ol li+li::before {
+        display: inline-block;
+        padding-right: 10px;
+        color: #4f4c55;
+        content: "/";
+    }
+
+    @media (max-width: 768px) {
+        .breadcrumbs .d-flex {
+            display: block !important;
+        }
+
+        .breadcrumbs ol {
+            display: block;
+        }
+
+        .breadcrumbs ol li {
+            display: inline-block;
+        }
+    }
 </style>
 
 <body>
@@ -60,7 +109,7 @@ include_once("koneksi.php");
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.php">Home</a>
+                        <a class="nav-link" aria-current="page" href="berandaDokter.php">Home</a>
                     </li>
                     <?php
                     if (isset($_SESSION['nama'])) {
@@ -70,18 +119,18 @@ include_once("koneksi.php");
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Pasien</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="index.php?page=obat">Jadwal Periksa</a>
+                                    <a class="dropdown-item" href="berandaDokter.php?page=jadwalPeriksa">Jadwal Periksa</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="index.php?page=obat">Pasien</a>
+                                    <a class="dropdown-item" href="berandaDokter.php?page=riwayatPasien">Riwayat Pasien</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="index.php?page=obat">Periksa</a>
+                                    <a class="dropdown-item" href="berandaDokter.php?page=periksa">Periksa</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php?page=profildokter">Profil Dokter</a>
+                            <a class="nav-link" aria-current="page" href="berandaDokter.php?page=profildokter">Profil Dokter</a>
                         </li>
                     <?php
                     }

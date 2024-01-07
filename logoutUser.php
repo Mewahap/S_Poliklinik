@@ -6,6 +6,7 @@ if (isset($_SESSION['username'])) {
     session_destroy();
 }
 
-header("Location: index.php?page=loginUser");
-exit();
-?>
+
+// Arahkan kembali ke halaman index.php
+header("Location: index.php");
+exit(); // Pastikan untuk keluar setelah mengarahkan header

@@ -3,25 +3,28 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['username'])) {
-    // Jika pengguna sudah login, tampilkan tombol "Logout"
+    // Jika pengguna belum login, arahkan ke halaman login
     header("Location: index.php?page=loginUser");
     exit;
 }
 
 if (isset($_POST['simpan'])) {
     if (isset($_POST['id'])) {
+        // Update data jika id tersedia
         $ubah = mysqli_query($mysqli, "UPDATE poli SET 
             nama_poli = '" . $_POST['nama_poli'] . "',
             keterangan = '" . $_POST['keterangan'] . "'
             WHERE
             id = '" . $_POST['id'] . "'");
     } else {
+        // Tambah data baru jika id tidak tersedia
         $tambah = mysqli_query($mysqli, "INSERT INTO poli (nama_poli, keterangan) 
             VALUES (
                 '" . $_POST['nama_poli'] . "',
                 '" . $_POST['keterangan'] . "'
             )");
     }
+    // Redirect ke halaman poli setelah operasi selesai
     echo "<script> 
         document.location='index.php?page=poli';
         </script>";
@@ -30,15 +33,28 @@ if (isset($_GET['aksi'])) {
     if ($_GET['aksi'] == 'hapus') {
         $hapus = mysqli_query($mysqli, "DELETE FROM poli WHERE id = '" . $_GET['id'] . "'");
     }
-
+    // Redirect ke halaman poli setelah operasi selesai
     echo "<script> 
             document.location='index.php?page=poli';
         </script>";
 }
 ?>
-<h2>Poli</h2>
-<br>
-<div class="container">
+<!-- ======= Breadcrumbs ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Poli</h2>
+            <ol>
+                <li><a href="index.php">Home</a></li>
+                <li>Poli</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+<div class="container mt-3">
     <!--Form Input Data-->
 
     <form class="form row" method="POST" style="width: 30rem;" action="" name="myForm" onsubmit="return(validate());">
@@ -106,12 +122,8 @@ if (isset($_GET['aksi'])) {
                     <td><?php echo $data['nama_poli'] ?></td>
                     <td><?php echo $data['keterangan'] ?></td>
                     <td>
-                        <a href="index.php?page=poli&id=<?php echo $data['id'] ?>">
-                            <i class="fas fa-pencil-alt btn btn-success rounded-pill px-3" title="Ubah"></i>
-                        </a>
-                        <a href="index.php?page=poli&id=<?php echo $data['id'] ?>&aksi=hapus">
-                            <i class="fas fa-trash-alt btn btn-danger rounded-pill px-3" title="Hapus"></i>
-                        </a>
+                        <a class="btn btn-success rounded-pill px-3" href="index.php?page=poli&id=<?php echo $data['id'] ?>">Ubah</a>
+                        <a class="btn btn-danger rounded-pill px-3" href="index.php?page=poli&id=<?php echo $data['id'] ?>&aksi=hapus">Hapus</a>
                     </td>
                 </tr>
             <?php
